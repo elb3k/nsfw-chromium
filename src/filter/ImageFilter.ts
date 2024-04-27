@@ -20,12 +20,18 @@ export class ImageFilter {
             )
         ) {
             image.dataset.nsfwFilterStatus = 'processing'
-            this._analyzeImage(image)
+            if (image.complete){
+                this._analyzeImage(image)
+            } else {
+                image.onload = () => {
+                    this._analyzeImage(image)
+                }
+	        }
         }
     }
 
     private _analyzeImage(image: HTMLImageElement): void {
-        image.crossOrigin='anonymous'
+	image.crossOrigin='anonymous'
         this.queue.predict(image, (result: boolean) => {
             image.style.transform = ""
             if (result){
@@ -35,7 +41,6 @@ export class ImageFilter {
             }
             image.crossOrigin = ""
         }, (error)=>{
-            image.style.transform = ""
             image.style.filter = "grayscale(1)"
             image.crossOrigin = ""
         })

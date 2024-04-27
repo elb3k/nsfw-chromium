@@ -70,7 +70,7 @@ export class DomObserver {
         if ((mutation.target as HTMLImageElement).nodeName === 'IMG') {
           this.imageFilter.analyzeImage(mutation.target as HTMLImageElement, mutation.attributeName === 'src')
         }
-        if ((mutation.target as HTMLImageElement).nodeName === 'VIDEO') {
+        if ((mutation.target as HTMLVideoElement).nodeName === 'VIDEO') {
           this.videoFilter.analyzeVideo(mutation.target as HTMLVideoElement)
         }
       }
