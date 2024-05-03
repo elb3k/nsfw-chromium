@@ -20,7 +20,7 @@ export class ImageFilter {
             )
         ) {
             image.dataset.nsfwFilterStatus = 'processing'
-            if (image.complete){
+            if (image.complete || srcAttribute){
                 this._analyzeImage(image)
             } else {
                 image.onload = () => {
